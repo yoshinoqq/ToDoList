@@ -1,0 +1,49 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+#root{
+    display: flex;
+    justify-content: center;
+}
+.task{
+    display:flex;
+    border: 2px solid rgb(22, 119, 255);
+    border-radius: 10px;
+    min-height: 50px;
+    width: 750px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding: 0px 10px;
+}
+.App{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.ctb__current{
+    border: solid 2px rgb(22, 119, 255);
+    background-color:rgb(229, 230, 253);
+}
+.pag{
+    margin-top: 10px;
+}
+.filter{
+    display: flex;
+    
+    flex-direction: column;
+    align-items: center;
+
+}
+h1{
+    font-family: "Shantell Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+      "BNCE" 0,
+      "INFM" 0,
+      "SPAC" 0;
+}

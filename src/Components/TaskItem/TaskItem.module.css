@@ -1,0 +1,17 @@
+.task_component{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-family: "Shantell Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-variation-settings:
+      "BNCE" 0,
+      "INFM" 0,
+      "SPAC" 0;
+}
+input[type="checkbox"]{
+    accent-color: blue;
+    
+}
