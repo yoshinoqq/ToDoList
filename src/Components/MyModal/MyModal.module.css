@@ -1,0 +1,48 @@
+.modal{
+    opacity: 0;
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    bottom:0 ;
+    right: 0;
+    left: 0;
+    
+    
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    padding-top: 80px;
+    background-color: rgba(0,0,0,0.4);
+    
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+.modalContent{
+    padding: 25px;
+    background-color: rgb(221, 234, 252);
+    border-radius: 16px;
+    min-width: 140px;
+    border: 1px solid rgb(22, 119, 255);
+    font-family: "Shantell Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-variation-settings:
+      "BNCE" 0,
+      "INFM" 0,
+      "SPAC" 0;
+    
+}
+.modal.active{
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    padding-top: 80px;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    
+
+
+    
+    
+}

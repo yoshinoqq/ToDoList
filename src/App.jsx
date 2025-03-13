@@ -2,27 +2,56 @@
 import TaskList from "./Components/TaskList";
 import { useState } from "react";
 import "./styles/App.css";
-
+import MyModal from "./Components/MyModal";
 import TaskForm from "./Components/TaskForm";
 import TaskButton from "./Components/UI/Button/TaskButton";
 import { useEffect } from "react";
 import { Pagination } from "antd";
-const TASKS_PER_PAGE = 5;
+import { Transition } from "react-transition-group";
+import axios from 'axios'
+import TodosService from "./API/TodosService";
+import getTodos from "./API/getTodos";
+const TASKS_PER_PAGE = 7;
 function App() {
+  const [isTododsloading, setTodosLoading] = useState(false)
   const [tasks, setTasks] = useState([]);
   const [filter, setFilter] = useState("All");
-  const [filterdate, setFilterDate] = useState("off");
+  const [filterdate, setFilterDate] = useState("on");
   const [currentPage, setCurrentPage] = useState(1);
+  const [warn,setWarn] = useState('none');
+  useEffect( () => {
+    fetchTodos()
+  }, []
 
+  )
+  async function fetchTodos() {
+    setTodosLoading(true)
+    let todos = await getTodos()
+    todos = todos.map(i => { 
+      const a =  new Date()
+      i.date = a.getDate() + '.' + (a.getMonth() + 1) + '.' + a.getFullYear()
+      
+      return i;
+    
+    })
+    console.log(todos)
+    setTasks(todos)
+    setTodosLoading(false)
+    
+    
+  }
   function handleChangeTaskBody(newBody, id) {
     const newTasks = tasks.map((task) => {
-      console.log(newBody);
       if (task.id === id && newBody.trim() !== "") {
-        task.body = newBody;
+        task.title = newBody;
       } else if (task.id === id) {
-        alert("sdf");
+        
+        setWarn('visible')
+        // setWarn("none")
+       
       }
-
+      
+      
       return task;
     })
     setTasks(newTasks);
@@ -43,7 +72,7 @@ function App() {
     } else if (filter === "Done") {
       return tasks
         .filter((task) => {
-          if (task.checked === true) {
+          if (task.completed === true) {
             return true;
           }
         })
@@ -51,7 +80,7 @@ function App() {
     } else if (filter === "Undone") {
       return tasks
         .filter((task) => {
-          if (task.checked === false) {
+          if (task.completed === false) {
             return true;
           }
         })
@@ -61,7 +90,7 @@ function App() {
   function handleChangeCheckbox(id) {
     const newTasks = tasks.map((task) => {
       if (task.id === id) {
-        task.checked = !task.checked;
+        task.completed = !task.completed;
       }
 
       return task;
@@ -95,8 +124,12 @@ useEffect(() => {
 }, []);
   return (
     <div className="App">
+      
+        <MyModal visib={warn} setVisible={setWarn}>Введите текст</MyModal>
+        
+      
       <h1 style={{ textAlign: "center" }}>To Do</h1>
-      <TaskForm create={createTask} />
+      <TaskForm create={createTask} visib={warn} setVisible={setWarn} />
       
       <div className="filter">
         <div>
@@ -138,7 +171,7 @@ useEffect(() => {
         </TaskButton>
         </div>
       </div>
-
+          
       {filteredTasks.length !== 0 ? (
         <TaskList
           handleChangeCheckbox={handleChangeCheckbox}
@@ -155,7 +188,11 @@ useEffect(() => {
         onChange={(page) => setCurrentPage(page)}
         defaultPageSize={TASKS_PER_PAGE}
         total={filteredTasks.length}
+        showQuickJumper={true}
+        showSizeChanger={false}
+        style={  warn === 'visible' ? {zIndex: '-1'} : {zIndex: '0'}}
       />}
+
     </div>
   );
 }
