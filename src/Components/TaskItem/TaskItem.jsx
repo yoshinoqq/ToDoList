@@ -45,24 +45,20 @@ function TaskItem({
           onChange={() => handleChangeCheckbox(task.id)}
         ></input>
         {isEditing ? (
-          // <InputTask
-          // onKeyDown={handleEnter}
-          //   type="text"
-          //   value={newBody}
-          //   onChange={(e) => setNewBody(e.target.value)}
-          //   autoFocus
-          // ></InputTask>
           <MyEditingInput type='text' value={newBody} onChange={(e) => setNewBody(e.target.value)} autoFocus onKeyDown={(e) => {
             handleEnter(e)
             handleEsc(e)
           }
           } ></MyEditingInput>
         ) : (
-          <div onDoubleClick={() => setIsEditing(true)}>{task.title}</div>
+          <div>{task.title}</div>
+          
         )}
+        
       </div>
       <div className={classes.task_component}>
         <div>{task.date}</div>
+        
 
         {isEditing ? (
           <>
@@ -81,12 +77,15 @@ function TaskItem({
             </TaskButton>
           </>
         ) : (
+          <>
+          <TaskButton onClick={() => setIsEditing(true)}>✏️</TaskButton>
           <TaskButton
             onClick={() => removeTask(task)}
             className="task_delete_button"
           >
             🗑️
           </TaskButton>
+          </>
         )}
       </div>
     </div>
